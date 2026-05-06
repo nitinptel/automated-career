@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>EduRise | Faculty Career Advancement System</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef2ff 0%, #d9e2f5 100%);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    /* main container */
+    .glass-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 3rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0,0,0,0.02);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #1E2A5E, #2A4D7C);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h1 i {
+      background: none;
+      -webkit-background-clip: unset;
+      color: #2A4D7C;
+      font-size: 2rem;
+    }
+
+    .subhead {
+      color: #334155;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+      font-weight: 500;
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+    }
+
+    /* two column layout */
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .form-card {
+      flex: 1.2;
+      min-width: 280px;
+      background: white;
+      border-radius: 2rem;
+      padding: 1.8rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .result-card {
+      flex: 1;
+      min-width: 280px;
+      background: linear-gradient(125deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 2rem;
+      padding: 1.8rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+
+    .input-group {
+      margin-bottom: 1.4rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    label i {
+      color: #3b82f6;
+      width: 20px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 1.5rem;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      background: #fefefe;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(95deg, #1E3A8A, #2563eb);
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+      box-shadow: 0 4px 10px rgba(37,99,235,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(95deg, #0f2b5e, #1e4bb7);
+      box-shadow: 0 12px 20px -8px rgba(37,99,235,0.5);
+    }
+
+    .test-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 0 10px;
+    }
+
+    .test-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #1e293b;
+    }
+
+    .test-btn:hover {
+      background: #e2e8f0;
+      transform: scale(0.97);
+      border-color: #3b82f6;
+    }
+
+    .rec-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      animation: fadeSlideUp 0.5s ease-out;
+      border-left: 6px solid #3b82f6;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+    }
+
+    .rec-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .rec-badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      border-radius: 30px;
+      padding: 4px 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .rec-desc {
+      color: #334155;
+      line-height: 1.5;
+      margin: 12px 0;
+    }
+
+    .rec-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      background: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 1rem;
+      margin-top: 12px;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, #cbd5e1, transparent);
+    }
+
+    .stats-note {
+      background: #eef2ff;
+      padding: 12px;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #1e3a8a;
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(20px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    @media (max-width: 760px) {
+      .glass-container { padding: 1.2rem; }
+      .rec-title { font-size: 1.3rem; }
+      h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glass-container">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <div>
+      <h1><i class="fas fa-chalkboard-user"></i> EduRise AI</h1>
+      <div class="subhead">Automated Career Advancement System · Higher Education Faculty</div>
+    </div>
+    <div><i class="fas fa-graduation-cap" style="font-size: 2.5rem; color:#2c3e66;"></i></div>
+  </div>
+
+  <div class="dashboard">
+    <!-- Form Section -->
+    <div class="form-card">
+      <form id="advancementForm">
+        <div class="input-group">
+          <label><i class="fas fa-user-graduate"></i> Faculty Name</label>
+          <input type="text" id="facultyName" placeholder="e.g., Ramgopal Sharma" required>
+        </div>
+        <div class="input-group">
+          <label><i class="fas fa-book-open"></i> Current Qualification</label>
+          <select id="qualification">
+            <option value="B.Tech">B.Tech / B.E.</option>
+            <option value="B.Sc">B.Sc (Science)</option>
+            <option value="B.Com">B.Com</option>
+            <option value="B.A.">B.A. (Humanities)</option>
+            <option value="M.Tech">M.Tech / M.E.</option>
+            <option value="M.Sc">M.Sc</option>
+            <option value="MBA">MBA</option>
+            <option value="MCA">MCA</option>
+            <option value="M.Ed">M.Ed</option>
+            <option value="MA">M.A.</option>
+            <option value="LL.B">LL.B / Law Graduate</option>
+            <option value="PhD">PhD (Doctorate)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label><i class="fas fa-briefcase"></i> Years of Experience</label>
+          <input type="number" id="experience" value="2" step="0.5" min="0" max="40">
+        </div>
+        <div class="input-group">
+          <label><i class="fas fa-calendar-alt"></i> Age (Years)</label>
+          <input type="number" id="age" value="23" min="22" max="75">
+        </div>
+        <div class="input-group">
+          <label><i class="fas fa-tag"></i> Academic Category (Dept/Area)</label>
+          <select id="category">
+            <option value="Engineering">🔧 Engineering</option>
+            <option value="Computer Science & IT">💻 Computer Science & IT</option>
+            <option value="Science">🧪 Science (Physics/Chem/Maths)</option>
+            <option value="Commerce">📊 Commerce</option>
+            <option value="Management">🏢 Management & Business</option>
+            <option value="Arts & Humanities">🎭 Arts & Humanities</option>
+            <option value="Education">📚 Education & Pedagogy</option>
+            <option value="Law">⚖️ Law & Legal Studies</option>
+            <option value="Medicine">🩺 Medicine & Health Sciences</option>
+            <option value="Social Sciences">🌍 Social Sciences</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label><i class="fas fa-heart"></i> Primary Interest / Research Field</label>
+          <input type="text" id="interest" placeholder="e.g., coding, data science, AI, finance, literature, teaching pedagogy" value="coding and software development">
+        </div>
+        <button type="button" id="submitBtn" class="btn-primary"><i class="fas fa-microchip"></i> Get Career Pathway</button>
+      </form>
+      <div class="test-buttons">
+        <button class="test-btn" id="ramgopalTest"><i class="fas fa-vial"></i> Ramgopal (B.Tech, coding, 2yr)</button>
+        <button class="test-btn" id="commerceTest"><i class="fas fa-chart-line"></i> Commerce Faculty</button>
+        <button class="test-btn" id="phdAspirant"><i class="fas fa-flask"></i> Research Scholar</button>
+        <button class="test-btn" id="educationLead"><i class="fas fa-chalkboard"></i> Education Expert</button>
+      </div>
+      <div class="stats-note">
+        <i class="fas fa-dice-d6"></i> 25+ Distinct Career Pathways · Smart AI Matching
+      </div>
+    </div>
+
+    <!-- Result Section -->
+    <div class="result-card" id="resultArea">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
+        <i class="fas fa-lightbulb" style="font-size: 1.8rem; color:#f59e0b;"></i>
+        <h3 style="font-weight: 600;">🎓 Personalized Recommendation</h3>
+      </div>
+      <div id="recommendationOutput">
+        <div style="text-align: center; padding: 2rem; color: #475569;">
+          <i class="fas fa-arrow-right-to-bracket" style="font-size: 2rem; opacity: 0.5;"></i>
+          <p>Fill faculty details and click "Get Career Pathway"</p>
+          <p style="font-size: 0.8rem;">✨ 25+ higher education pathways across domains</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <i class="fas fa-brain"></i> AI-driven suggestions based on qualification, experience, category & interest — 25 distinct advancement categories
+  </footer>
+</div>
+
+<script>
+  // ------------------------------------------------------------
+  // 25 Distinct Career Advancement Recommendations (ID 1 to 25)
+  // ------------------------------------------------------------
+  const RECOMMENDATIONS = {
+    1: { title: "PhD in Computer Science & Engineering", desc: "Ideal for deep research, AI/ML innovation & faculty positions in top universities.", duration: "3-5 Years", level: "Doctoral" },
+    2: { title: "M.Tech in Software Systems", desc: "Advanced specialization in software architecture, full-stack & system design.", duration: "2 Years", level: "Master's" },
+    3: { title: "PG Diploma in Data Science & AI", desc: "Industry-aligned program for AI/ML careers and research.", duration: "1 Year", level: "PG Diploma" },
+    4: { title: "MBA in Information Technology", desc: "Leadership & tech management bridging business and IT.", duration: "2 Years", level: "MBA" },
+    5: { title: "M.Sc in Computer Science (Research)", desc: "Strengthen theoretical foundations & pursue PhD track.", duration: "2 Years", level: "Master's" },
+    6: { title: "PhD in Education & Technology", desc: "EdTech innovation, instructional design & higher education leadership.", duration: "3-4 Years", level: "Doctoral" },
+    7: { title: "M.Ed. in Higher Education", desc: "Curriculum development, pedagogy & academic administration.", duration: "2 Years", level: "Master's" },
+    8: { title: "Post Graduate Certificate in Academic Leadership", desc: "For aspiring Deans, HODs and educational leaders.", duration: "6 Months", level: "Certificate" },
+    9: { title: "M.Phil in English Literature", desc: "Advanced literary criticism & teaching at undergraduate level.", duration: "1-2 Years", level: "M.Phil" },
+    10: { title: "PhD in English / Comparative Literature", desc: "Scholarly research & tenured professor roles.", duration: "3-5 Years", level: "Doctoral" },
+    11: { title: "M.Com in Finance & Taxation", desc: "Expertise in corporate finance, accounting & research.", duration: "2 Years", level: "Master's" },
+    12: { title: "PhD in Commerce & Management", desc: "High-impact research in accounting, finance & business strategy.", duration: "3-5 Years", level: "Doctoral" },
+    13: { title: "MBA in Finance", desc: "Corporate finance, investment banking & fintech leadership.", duration: "2 Years", level: "MBA" },
+    14: { title: "M.Sc in Mathematics & Computing", desc: "Quantitative methods, cryptography & data science foundation.", duration: "2 Years", level: "Master's" },
+    15: { title: "PhD in Mathematics", desc: "Pure/applied mathematics research & university faculty.", duration: "3-5 Years", level: "Doctoral" },
+    16: { title: "M.Tech in AI & Machine Learning", desc: "Cutting-edge AI specialization & research roles.", duration: "2 Years", level: "Master's" },
+    17: { title: "Executive MBA for Working Professionals", desc: "Leadership skills without career break.", duration: "1.5-2 Years", level: "Executive MBA" },
+    18: { title: "PhD in Management Studies", desc: "Organizational behavior, strategy & business research.", duration: "3-5 Years", level: "Doctoral" },
+    19: { title: "M.Sc in Data Science", desc: "Analytics, big data & AI-driven decision making.", duration: "2 Years", level: "Master's" },
+    20: { title: "PG Diploma in Cyber Security", desc: "Network security, ethical hacking & digital forensics.", duration: "1 Year", level: "PG Diploma" },
+    21: { title: "LL.M. with Specialization in Cyber Law", desc: "Legal tech, data privacy & academic law careers.", duration: "1-2 Years", level: "Master of Laws" },
+    22: { title: "PhD in Law", desc: "Constitutional, corporate law research & professorship.", duration: "3-5 Years", level: "Doctoral" },
+    23: { title: "Post Doctoral Fellowship (PDF)", desc: "Advanced research & publication excellence.", duration: "1-3 Years", level: "Postdoc" },
+    24: { title: "MBA in HR & Organizational Development", desc: "Talent management & academic HR leadership.", duration: "2 Years", level: "MBA" },
+    25: { title: "Certificate in Advanced Teaching & Learning", desc: "Modern pedagogy, digital classrooms & student engagement.", duration: "6 Months", level: "Certification" }
+  };
+
+  // ---------- Rule engine: returns recommendation ID (1-25) based on profile ----------
+  function getRecommendationId(qual, experience, age, category, interestLower) {
+    // robust mapping covering 25 categories with distinct pathways
+    // rule priority from top (exact match) to fallback
+    
+    // 1) Ramgopal / coding & B.Tech category CS/Engg -> M.Tech in Software Systems (id 2)
+    if ((qual === "B.Tech" || qual === "B.E.") && (category === "Computer Science & IT" || category === "Engineering") && (interestLower.includes("coding") || interestLower.includes("software"))) {
+      return 2;
+    }
+    // Data science / AI interest (B.Tech/M.Sc/MCA) -> PG Diploma Data Science or M.Sc DS
+    if ((qual === "B.Tech" || qual === "M.Sc" || qual === "MCA") && interestLower.includes("data science") && (category === "Computer Science & IT" || category === "Science")) {
+      return 3;
+    }
+    // MBA interest + Management/B.Com category
+    if ((category === "Management" || category === "Commerce") && (interestLower.includes("management") || interestLower.includes("business") || interestLower.includes("finance"))) {
+      if (qual === "B.Com") return 13; // MBA Finance
+      if (qual === "MBA") return 18;   // PhD in Management
+      return 17; // Executive MBA
+    }
+    // Education & pedagogy
+    if (category === "Education" && (interestLower.includes("teaching") || interestLower.includes("pedagogy") || interestLower.includes("education"))) {
+      if (experience < 5) return 7;   // M.Ed
+      else return 6;                  // PhD in Education & Technology
+    }
+    // Arts/Humanities + literature interest
+    if (category === "Arts & Humanities" && (interestLower.includes("literature") || interestLower.includes("english") || interestLower.includes("philosophy"))) {
+      if (qual === "B.A." || qual === "MA") return 9;  // M.Phil English
+      else return 10; // PhD English
+    }
+    // Commerce specific
+    if (category === "Commerce" && (interestLower.includes("finance") || interestLower.includes("tax") || interestLower.includes("accounting"))) {
+      if (qual === "B.Com") return 11;   // M.Com Finance
+      else return 12;                    // PhD Commerce
+    }
+    // Science & Mathematics
+    if (category === "Science" && (interestLower.includes("math") || interestLower.includes("mathematics") || interestLower.includes("statistics"))) {
+      if (qual === "B.Sc") return 14;    // M.Sc Maths & Computing
+      else return 15;                    // PhD Mathematics
+    }
+    // AI / ML specialization
+    if ((qual === "B.Tech" || qual === "M.Tech") && (interestLower.includes("ai") || interestLower.includes("machine learning") || interestLower.includes("artificial intelligence"))) {
+      return 16;  // M.Tech in AI & ML
+    }
+    // Cyber Security
+    if (interestLower.includes("cyber") || interestLower.includes("security") || interestLower.includes("ethical hacking")) {
+      if (category === "Computer Science & IT") return 20;   // PG Diploma Cyber Security
+      if (category === "Law") return 21;                     // LL.M Cyber Law
+      return 20;
+    }
+    // Law faculty
+    if (category === "Law") {
+      if (qual === "LL.B") return 21;   // LL.M
+      return 22;                         // PhD in Law
+    }
+    // Medicine/Health sciences
+    if (category === "Medicine") {
+      return 23;   // Post Doctoral Fellowship (advanced clinical research)
+    }
+    // HR & Organizational Dev
+    if (interestLower.includes("hr") || interestLower.includes("human resource") || interestLower.includes("talent")) {
+      return 24;   // MBA in HR
+    }
+    // Faculty with PhD already -> Post Doctoral Fellowship
+    if (qual === "PhD") {
+      return 23;
+    }
+    // B.Tech general but not specific -> M.Tech in Software or MBA in IT
+    if (qual === "B.Tech" && (category === "Engineering" || category === "Computer Science & IT")) {
+      if (experience <= 3) return 2;
+      else return 4;   // MBA in IT
+    }
+    // MCA / M.Sc Comp Sci
+    if ((qual === "MCA" || qual === "M.Sc") && category === "Computer Science & IT") {
+      return 5;        // M.Sc Computer Science (Research)
+    }
+    // M.Tech -> PhD in CSE
+    if (qual === "M.Tech" && (category === "Computer Science & IT" || category === "Engineering")) {
+      return 1;        // PhD CSE
+    }
+    // M.Ed or Education general
+    if (category === "Education" && qual === "M.Ed") {
+      return 6;
+    }
+    // Social sciences & generic research
+    if (category === "Social Sciences") {
+      if (experience < 4) return 7;
+      else return 23;
+    }
+    // Pedagogy & advanced certificate fallback
+    if (interestLower.includes("teaching") || interestLower.includes("instruction")) {
+      return 25;       // Certificate in Advanced Teaching
+    }
+    // Default for any remaining -> academic leadership or PhD based on exp
+    if (experience > 5 && age > 30) return 8;   // Academic Leadership
+    if (qual === "B.Com" || qual === "B.A.") return 11; // General M.Com / Master's
+    // ultimate safe fallback -> MBA IT or career pathway
+    return 17;
+  }
+
+  // Helper to get full recommendation object
+  function getRecommendation(profile) {
+    const { name, qualification, experience, age, category, interest } = profile;
+    const interestClean = interest.toLowerCase();
+    let recId = getRecommendationId(qualification, experience, age, category, interestClean);
+    // ensure recId exists in our 1..25 mapping, else fallback to 8
+    if (!RECOMMENDATIONS[recId]) recId = 8;
+    const rec = RECOMMENDATIONS[recId];
+    let rationale = generateRationale(profile, recId, rec.title);
+    return { ...rec, id: recId, rationale, name: name || "Faculty Member" };
+  }
+
+  function generateRationale(profile, recId, recTitle) {
+    const { qualification, experience, category, interest } = profile;
+    let reason = `Based on your ${qualification} qualification, ${experience} years of teaching experience, ` +
+                 `domain (${category}), and interest in "${interest}". `;
+    if (recId === 2) reason += "M.Tech in Software Systems aligns with your coding passion and technical teaching background, boosting career in higher education & research labs.";
+    else if (recId === 3) reason += "Data Science & AI is a booming interdisciplinary field — perfect for modern faculty advancement.";
+    else if (recId === 13 || recId === 11) reason += "Finance specialization will open avenues for professor roles in commerce & business schools.";
+    else if (recId === 7) reason += "M.Ed enhances pedagogical skills, curriculum design and academic leadership in higher education institutes.";
+    else if (recId === 1) reason += "Doctoral program prepares you for tenured faculty positions and groundbreaking research contributions.";
+    else if (recId === 16) reason += "AI/ML domain is revolutionizing academics — this program ensures you stay at the forefront.";
+    else if (recId === 20) reason += "Cyber security experts are in high demand for academic & corporate training roles.";
+    else if (recId === 23) reason += "Post-doctoral fellowship will solidify your research profile and global collaborations.";
+    else reason += `The pathway "${recTitle}" is recommended to fast-track your academic career, align with your interests, and meet UGC/HEI advancement norms.`;
+    return reason;
+  }
+
+  // DOM elements & event handlers
+  document.addEventListener("DOMContentLoaded", () => {
+    const submitBtn = document.getElementById("submitBtn");
+    const resultDiv = document.getElementById("recommendationOutput");
+    
+    function updateRecommendation() {
+      const name = document.getElementById("facultyName").value.trim();
+      const qualification = document.getElementById("qualification").value;
+      let experience = parseFloat(document.getElementById("experience").value);
+      let age = parseInt(document.getElementById("age").value);
+      const category = document.getElementById("category").value;
+      const interest = document.getElementById("interest").value.trim();
+      
+      if (isNaN(experience)) experience = 0;
+      if (isNaN(age)) age = 25;
+      if (!name) {
+        resultDiv.innerHTML = `<div style="background:#ffe9e9; padding:1rem; border-radius:1rem;"><i class="fas fa-exclamation-triangle"></i> Please enter faculty name.</div>`;
+        return;
+      }
+      if (!interest) {
+        resultDiv.innerHTML = `<div style="background:#fff3e0; padding:1rem; border-radius:1rem;">⚠️ Please specify interest area for accurate suggestions.</div>`;
+        return;
+      }
+      
+      const profile = { name, qualification, experience, age, category, interest };
+      const rec = getRecommendation(profile);
+      
+      const html = `
+        <div class="rec-card" style="animation: fadeSlideUp 0.4s ease;">
+          <div class="rec-badge"><i class="fas fa-trophy"></i> RECOMMENDED PATHWAY · ID: ${rec.id}/25</div>
+          <div class="rec-title"><i class="fas fa-graduation-cap"></i> ${rec.title}</div>
+          <div class="rec-desc">${rec.desc}</div>
+          <div class="rec-meta">
+            <span><i class="fas fa-hourglass-half"></i> Duration: ${rec.duration}</span>
+            <span><i class="fas fa-layer-group"></i> Level: ${rec.level}</span>
+            <span><i class="fas fa-chalkboard"></i> For: ${rec.name}</span>
+          </div>
+          <hr>
+          <div><i class="fas fa-brain"></i> <strong>Why this path?</strong><br>${rec.rationale}</div>
+          <div style="margin-top: 14px; background:#eef2ff; padding: 10px; border-radius: 20px; font-size:0.8rem;">
+            <i class="fas fa-check-circle"></i> Aligned with ${category} domain · ${interest} interest · ${experience} yrs exp.
+          </div>
+        </div>
+        <div style="margin-top: 12px; font-size:0.7rem; text-align:right; opacity:0.7;">
+          <i class="fas fa-database"></i> 25+ HigherEd categories | Smart recommendation engine
+        </div>
+      `;
+      resultDiv.innerHTML = html;
+    }
+    
+    submitBtn.addEventListener("click", updateRecommendation);
+    
+    // Test cases
+    document.getElementById("ramgopalTest").addEventListener("click", () => {
+      document.getElementById("facultyName").value = "Ramgopal Sharma";
+      document.getElementById("qualification").value = "B.Tech";
+      document.getElementById("experience").value = "2";
+      document.getElementById("age").value = "23";
+      document.getElementById("category").value = "Computer Science & IT";
+      document.getElementById("interest").value = "coding and software development";
+      updateRecommendation();
+    });
+    
+    document.getElementById("commerceTest").addEventListener("click", () => {
+      document.getElementById("facultyName").value = "Neha Agarwal";
+      document.getElementById("qualification").value = "B.Com";
+      document.getElementById("experience").value = "4";
+      document.getElementById("age").value = "28";
+      document.getElementById("category").value = "Commerce";
+      document.getElementById("interest").value = "finance, investment banking";
+      updateRecommendation();
+    });
+    
+    document.getElementById("phdAspirant").addEventListener("click", () => {
+      document.getElementById("facultyName").value = "Dr. Anjali Mehta";
+      document.getElementById("qualification").value = "M.Tech";
+      document.getElementById("experience").value = "5";
+      document.getElementById("age").value = "32";
+      document.getElementById("category").value = "Computer Science & IT";
+      document.getElementById("interest").value = "artificial intelligence, deep learning research";
+      updateRecommendation();
+    });
+    
+    document.getElementById("educationLead").addEventListener("click", () => {
+      document.getElementById("facultyName").value = "Prof. Sanjay Kumar";
+      document.getElementById("qualification").value = "M.Ed";
+      document.getElementById("experience").value = "6";
+      document.getElementById("age").value = "38";
+      document.getElementById("category").value = "Education";
+      document.getElementById("interest").value = "higher education leadership, curriculum innovation";
+      updateRecommendation();
+    });
+    
+    // initial demo suggestion highlight
+    setTimeout(() => {
+      const initNote = document.createElement('div');
+    }, 100);
+  });
+</script>
+</body>
+</html>
